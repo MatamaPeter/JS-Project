@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+</head>
+<body>
+    <script>
+        // const products = {
+        //     Name: 'Peter',
+        //     Age: 25,
+        //     Occupation: 'Developer',
+        //     Address: "123 Main St",
+
+        // };
+        // products.newProperty = true;
+        // delete products.newProperty;
+        // console.log(products);
+
+        const product2 = {
+            Name: 'T-shirt',
+            Price: {
+                Original: 10.99,
+                Tax: 1.49,
+            }
+            
+        }; 
+        function totalCost(){
+            sum = product2.Price.total = (product2.Price.Original + product2.Price.Tax);
+            return sum;
+        }
+        console.log(product2)
+        console.log(`Total cost : ${totalCost()}`)
+
+        console.log(JSON.stringify(product2))
+        
+        const jsonstring = JSON.stringify(product2);
+        
+        console.log(JSON.parse(jsonstring));
+        
+
+    </script>
+</body>
+</html>
