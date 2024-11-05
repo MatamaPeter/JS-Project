@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Coin Game</h1>
+
+    <button onclick="playerPick('Heads')">Heads</button>
+    <button onclick="playerPick('Tails')">Tails</button>
+    <button onclick="resetScores()">Reset Scores</button>
+
+
+    <script>
+
+    let scores = JSON.parse(localStorage.getItem('Score')) || {Wins:0, Losses:0};
+    
+
+    function playerPick(pickedMove){
+       
+        const computerMove = pickComputerMove();
+
+        let result= pickedMove === computerMove ? 'You won': 'You lose';
+
+        result === 'You won' ? scores.Wins++ : scores.Losses++;
+        
+        localStorage.setItem('Score', JSON.stringify(scores));
+
+        alert(`You picked ${pickedMove} Computer picked ${computerMove}. ${result}
+SCORES: Wins: ${scores.Wins} Losses: ${scores.Losses}`)
+
+    }
+
+    function pickComputerMove(){
+
+        const randomNumber = Math.random();
+        let computerMove = '';
+
+        randomNumber <= 0.5 ? computerMove = 'Heads':computerMove ='Tails';
+        return computerMove;
+
+    }
+    function resetScores(){
+        scores = {Wins: 0, Losses: 0};
+        localStorage.setItem('Score',JSON.stringify(scores));
+        alert('Scores have been reset')
+    }
+    </script>
+</body>
+</html>
