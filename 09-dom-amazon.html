@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Amazon Shipping Calculator</h1>
+
+    Orders under $40 = + $10 Shipping <p>
+    Orders over $40 = FREE shipping <p>
+
+    <input placeholder="Cost per item">
+    <button onclick="totalCost()">Calculate</button>
+
+    <p class="js-totalCost"></p>
+
+    <script>
+        function totalCost(){
+            let cost = parseFloat(document.querySelector('input').value);
+
+            if(isNaN(cost)||cost<=0){
+
+                document.querySelector('.js-totalCost')
+                    .innerHTML = 'Input a valid value';  
+                return;
+            }else{
+
+                 let total = cost <= 40 ? cost + 10 : cost ;
+                 console.log(total)
+
+                 document.querySelector('.js-totalCost')
+                    .innerHTML =`$ ${total}`;
+                   
+                    
+        }}
+    </script>
+</body>
+</html>
