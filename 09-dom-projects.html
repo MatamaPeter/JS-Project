@@ -9,6 +9,17 @@
     Youtube Subscribe Button <p>
     <button onclick="subscribe()" class="js-subscribe">Subscribe</button>
 
+    <h1>Amazon Shipping Calculator</h1>
+
+    Orders under $40 = + $10 Shipping <p>
+        Orders over $40 = FREE shipping
+    <p>
+
+        <input placeholder="Cost per item" onkeydown="enterKey(event)">
+        <button onclick="totalCost()">Calculate</button>
+
+    <p class="js-totalCost"></p>
+
     <script>
         function subscribe(){
             let btnElement = document.querySelector('.js-subscribe')
@@ -18,6 +29,30 @@
             : btnElement.innerHTML = 'Subscribed'  
 
         }
+
+        function enterKey(event) {
+                event.key === 'Enter' && totalCost()
+            }
+
+            function totalCost() {
+                let cost = Number(document.querySelector('input').value);
+
+                if (isNaN(cost) || cost <= 0) {
+
+                    document.querySelector('.js-totalCost')
+                        .innerHTML = 'Input a valid value';
+                    return;
+                } else {
+
+                    let total = cost <= 40 ? cost + 10 : cost;
+                    console.log(total)
+
+                    document.querySelector('.js-totalCost')
+                        .innerHTML = `$ ${total.toFixed(2)}`;
+
+
+                }
+            }
     </script>
 </body>
 </html>

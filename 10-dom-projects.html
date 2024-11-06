@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Projects</title>
+
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .subscribe-btn{
+            background-color: #000000;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .subscribed-btn{
+            background-color: #f3ecec;
+            color: rgb(41, 40, 40);
+            padding: 8px 25px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .input_cost{
+            border: 1px solid rgb(184, 184, 182) ;
+            padding: 15px;
+            border-radius: 10px;
+
+        }
+        .calc_btn{
+            border: none;
+            padding: 15px;
+            background: #02ad19;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+    Youtube Subscribe Button <p>
+    <button onclick="subscribe()" class="js-subscribe subscribe-btn">Subscribe</button>
+
+    <h1>Amazon Shipping Calculator</h1>
+
+    Orders under $40 = + $10 Shipping <p>
+        Orders over $40 = FREE shipping
+    <p>
+
+        <input class="input_cost" placeholder="Cost per item" onkeydown="enterKey(event)">
+        <button class ="calc_btn" onclick="totalCost()">Calculate</button>
+
+    <p class="js-totalCost"></p>
+
+    <script>
+        function subscribe(){
+
+            let btnElement = document.querySelector('.js-subscribe')
+
+            if (btnElement.innerText === 'Subscribed'){
+
+               btnElement.innerHTML = 'Subscribe'
+               btnElement.classList.add('subscribed-btn')
+
+            }else{ btnElement.innerHTML = 'Subscribed' 
+               btnElement.classList.remove('subscribed-btn')
+        }
+
+        }
+
+        function enterKey(event) {
+                event.key === 'Enter' && totalCost()
+            }
+
+            function totalCost() {
+                let cost = Number(document.querySelector('input').value);
+
+                if (isNaN(cost) || cost <= 0) {
+
+                    document.querySelector('.js-totalCost')
+                        .innerHTML = 'Input a valid value';
+                    return;
+                } else {
+
+                    let total = cost <= 40 ? cost + 10 : cost;
+                    console.log(total)
+
+                    document.querySelector('.js-totalCost')
+                        .innerHTML = `$ ${total.toFixed(2)}`;
+
+
+                }
+            }
+    </script>
+</body>
+</html>

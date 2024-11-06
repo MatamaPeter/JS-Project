@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size:   30px;
+        font-weight: 500;
+        
+    }
+    .calculator{
+        background: #000;
+        margin:auto;
+        padding: 15px;
+        border-radius: 18px;
+    }
+    .screen{
+        background: #ffffff;
+        height: 80px;
+        border-radius: 9px;
+        display: block;
+        gap: 0;
+        outline: 0;
+        
+    }
+    .screen input:focus{
+        outline: none;
+    }
+    .screen input{
+        display: flex;
+        border:0;
+        width: 100%;
+        height: 70%;
+        background: #000000;
+        margin: 0;
+        padding: 0;
+        color: white;
+        text-align: right;
+        font-weight: 500;
+    }
+    .answer_section{
+        width: 100%;
+        margin: 0;
+        background: #585151;
+        padding: 0;
+        color: white;
+        justify-content: right;
+        text-align: right;
+        
+        
+            
+    }
+    .buttons{
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr 2fr;
+        width: 30%;
+        gap: 0.2rem;
+    }
+    .buttons button{
+        border-radius:50% ;
+        border: none;
+        width: 50px;
+        height: 50px;
+        background: #d8d3d33d;
+        font-size: 20px;
+        color: rgb(255, 255, 255)
+        ;
+    }
+    .buttons button.edge{
+        background: #e6761b;
+    }
+
+</style>
+<body>
+    <div class="calculator">
+        <div class="screen" onkeydown="screenDisplay(event)">
+            <input>
+            <div class="answer_section">kkkkk</div>
+            
+        </div><p>
+        <div class="buttons">
+            <button value="+">+</button>
+            <button value="-">-</button>
+            <button value="/">/</button>
+            <button value="*" class="edge">x</button>
+            <button value="1">1</button>
+            <button value="2">2</button>
+            <button value="3">3</button>
+            <button value="4" class="edge">4</button>
+            <button value="5">5</button>
+            <button value="6">6</button>
+            <button value="7">7</button>
+            <button value="8" class="edge">8</button>
+            <button value="9">9</button>
+            <button value="0">0</button>
+            <button value="">C</button>
+            <button value="" class="edge">=</button>
+            
+        </div>
+    </div>
+    <script>
+        function screenDisplay(event){
+        console.log(document.querySelector('.answer_section').innerHTML = event.key);
+        console.log(event.key)
+    }
+    </script>
+</body>
+</html>
