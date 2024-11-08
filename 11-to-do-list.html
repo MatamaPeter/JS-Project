@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            display: flex;
+            margin: 250px;
+            flex-direction: column;
+            text-align: center;
+            gap:0.5rem;
+            background: #f8f3f3;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+
+        }
+        .todo-field{
+            background: #b4f6f8;
+            border-radius: 10px;
+        }
+        
+        .input-field{
+            
+        }
+    </style>
+
+</head>
+<body>
+    <div class="todo-field">
+    <h1>Todo List</h1><div class="input-filed">
+    <input Class="Js-item-input">
+    <button onclick="addToList()">Add to List</button>
+    </div>
+    <P class="list-output">
+
+    </P>
+    </div>
+    <script>
+        const todoList = [];
+
+        function addToList(){
+            
+
+            todoListItem = document.querySelector('.Js-item-input').value
+
+            todoList.push(todoListItem)
+
+            
+            postToHtml = '';
+
+            for(i=0; i < todoList.length; i++){
+                listedItem = todoList[i];
+                htmlCode = `<p>${listedItem} <button class="Item-delete" onclick="removeFromList(${i})">Delete</button></p>`
+                postToHtml += htmlCode
+
+            }
+
+            document.querySelector('.list-output').innerHTML = postToHtml;
+            document.querySelector('.Js-item-input').value = '';
+
+
+        }
+        function  removeFromList(index){
+            todoList.splice(index, 1);
+            document.querySelector('.list-output').innerHTML = postToHtml;
+            updateHtml();
+
+        }
+        function updateHtml(){
+            postToHtml = '';
+
+            for (i = 0; i < todoList.length; i++) {
+                listedItem = todoList[i];
+                htmlCode = `<p>${listedItem} <button class="Item-delete" onclick="removeFromList(${i})">Delete</button></p>`
+                postToHtml += htmlCode
+
+                
+
+            }
+
+            document.querySelector('.list-output').innerHTML = postToHtml;
+
+        }
+
+        
+    </script>
+</body>
+</html>
