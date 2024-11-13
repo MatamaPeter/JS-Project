@@ -72,22 +72,37 @@
         function renderList(){
             let postToHtml = '';
 
-            for (i = 0; i < todoList.length; i++) {
-                let listedItem = todoList[i];
-                let name = listedItem.Name;
-                let date = listedItem.dueDate;
-                htmlCode = `
+            todoList.forEach((item, index) => {
+                let name = item.Name;
+                let date = item.dueDate;
+                let htmlCode = `
                     
                         <div>${name}</div> 
                         <div>${date}</div>
                         <button 
                             class="Item-delete" 
-                            onclick="deleteItem(${i})"
+                            onclick="deleteItem(${index})"
                         >Delete</button>
-                        `
+                        `;
                 postToHtml += htmlCode
+            });
 
-            }
+            // for (i = 0; i < todoList.length; i++) {
+            //     let listedItem = todoList[i];
+            //     let name = listedItem.Name;
+            //     let date = listedItem.dueDate;
+            //     htmlCode = `
+                    
+            //             <div>${name}</div> 
+            //             <div>${date}</div>
+            //             <button 
+            //                 class="Item-delete" 
+            //                 onclick="deleteItem(${i})"
+            //             >Delete</button>
+            //             `
+            //     postToHtml += htmlCode
+
+            // }
 
             document.querySelector('.list-output').innerHTML = postToHtml;
 
