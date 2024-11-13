@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To-Do List</title>
+
+        <style>
+            /* Reset some default browser styling */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Body and background setup */
+            body {
+                font-family: 'Poppins', sans-serif;
+                background-color: #f7f7f7;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                color: #333;
+            }
+
+            /* Main container for the to-do list */
+            .container {
+                width: 100%;
+                max-width: 500px;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                padding: 25px;
+                animation: fadeIn 0.6s ease-in-out;
+            }
+
+            /* Header styling */
+            h1 {
+                text-align: center;
+                font-size: 2rem;
+                margin-bottom: 20px;
+                color: #4A90E2;
+            }
+
+            /* Input and button styles */
+            .input-fields {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .input-fields input {
+                padding: 12px;
+                font-size: 1rem;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                outline: none;
+                transition: all 0.3s ease;
+            }
+
+            .input-fields input:focus {
+                border-color: #4A90E2;
+                box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+            }
+
+            .input-fields button {
+                padding: 12px 0;
+                font-size: 1rem;
+                background-color: #4A90E2;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .input-fields button:hover {
+                background-color: #357ABD;
+            }
+
+            /* Todo list items and layout */
+            .Js-output {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .todo-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #fff;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+                transition: transform 0.2s ease, box-shadow 0.3s ease;
+            }
+
+            .todo-item:hover {
+                transform: scale(1.03);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .todo-item div {
+                font-size: 1rem;
+                color: #555;
+            }
+
+            .Remove-button button {
+                padding: 8px 16px;
+                background-color: #f44336;
+                color: white;
+                font-weight: bold;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .Remove-button button:hover {
+                background-color: #d32f2f;
+            }
+
+            /* Fade in animation for the list items */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 480px) {
+                .container {
+                    width: 90%;
+                    padding: 20px;
+                }
+
+                .todo-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1>To-Do List</h1>
+
+            <!-- Input Fields for Task Name and Date -->
+            <div class="input-fields">
+                <input class="Js-input" placeholder="Task Name" required>
+                <input class="Js-input2" type="date" required>
+                <button onclick="addToList()">Add</button>
+            </div>
+
+            <!-- List of Tasks -->
+            <div class="Js-output"></div>
+        </div>
+
+        <script>
+            // Get existing to-do list from localStorage
+            const todoList = JSON.parse(localStorage.getItem('toDoList')) || [];
+
+            // Function to add a new task to the list
+            function addToList() {
+                const inputName = document.querySelector('.Js-input');
+                const date = document.querySelector('.Js-input2');
+
+                let name = inputName.value.trim();
+                let dueDate = date.value;
+
+                if (name && dueDate) {
+                    todoList.push({ name, dueDate });
+                    localStorage.setItem('toDoList', JSON.stringify(todoList));
+
+                    renderList();
+                    inputName.value = '';
+                    date.value = '';
+                } else {
+                    alert("Please provide both a task name and a due date.");
+                }
+            }
+
+            // Function to render the list of tasks
+            function renderList() {
+                let html = '';
+                todoList.forEach((listedItem, index) => {
+                    let htmlDate = listedItem.dueDate;
+                    let htmlName = listedItem.name;
+
+                    html += `
+                    <div class="todo-item">
+                        <div>${htmlName}</div>
+                        <div>${htmlDate}</div>
+                        <div class="Remove-button">
+                            <button data-index="${index}">Delete</button>
+                        </div>
+                    </div>
+                `;
+                });
+                document.querySelector('.Js-output').innerHTML = html;
+
+                // Add event listeners for delete buttons
+                document.querySelectorAll('.Remove-button button').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const index = event.target.getAttribute('data-index');
+                        removeFromList(index);
+                    });
+                });
+            }
+
+            // Function to remove a task from the list
+            function removeFromList(index) {
+                todoList.splice(index, 1);
+                localStorage.setItem('toDoList', JSON.stringify(todoList));
+                renderList();
+            }
+
+            // Render the list when the page loads
+            window.onload = renderList;
+        </script>
+
+    </body>
+
+</html>
